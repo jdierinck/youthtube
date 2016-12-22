@@ -1,0 +1,8 @@
+services:
+#    yt.example:
+#        class: YTBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    yt.image_type_extension:
+        class: YTBundle\Form\Extension\ImageTypeExtension
+        tags:
+            - { name: form.type_extension, alias: file }

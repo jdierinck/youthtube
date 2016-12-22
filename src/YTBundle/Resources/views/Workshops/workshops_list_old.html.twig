@@ -1,0 +1,13 @@
+<ul>
+{% for workshop in workshops %}
+	<li>
+    <a href="{{ path('workshops',{'_locale':app.request.locale,'id':workshop.id}) }}">{{ workshop.title }}</a>
+    {% if app.user and is_granted('ROLE_EDITOR') %}
+    	<a href="{{ path('edit_workshop',{'_locale':app.request.locale,'id':workshop.id}) }}" class="admin_links"><img src="{{ asset('bundles/yt/images/edit.png')}}" width=15px/></a>
+    	<a href="{{ path('delete_workshop',{'_locale':app.request.locale,'id':workshop.id}) }}" class="admin_links"><img src="{{ asset('bundles/yt/images/delete.png')}}" width=15px/></a>
+    {% endif %}
+    </li>
+{% else %}
+<div class="comment">{% trans %}Geen workshops gevonden{% endtrans %}</div>
+{% endfor %}
+</ul>

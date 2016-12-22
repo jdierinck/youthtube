@@ -1,0 +1,18 @@
+.form_wrapper {
+max-width:700px; 
+min-width:300px; 
+margin-right:auto;
+margin-left:auto; 
+background-color:#FFFFFF;
+text-align:left;
+}
+
+span.required {
+	color:red;
+	font-size:12px;
+}
+
+.container {
+	min-width:100px;
+	padding-top:100px;
+}

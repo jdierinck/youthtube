@@ -1,0 +1,40 @@
+{% extends 'YTBundle::base.html.twig' %}
+
+{% block body %}
+{% render(controller('YTBundle:Menu:menu')) %}
+<div class="wrapper">
+{% if workshop %}
+<h1>{{ workshop.title }}</h1>
+<h3>{{ workshop.subtitle }}</h3>
+<img src="{{ asset(workshop.getwebpath) }}" style="max-width:70%;">
+<p style="width:70%;margin-right:auto;margin-left:auto;text-align:justify;font-size:0.85em">{{ workshop.description }}</p>
+
+<p>{% if app.user and is_granted('ROLE_EDITOR') %}
+	<a href="{{ path('edit_workshop',{'_locale':app.request.locale,'id':workshop.id}) }}" class="admin_links"><img src="{{ asset('bundles/yt/images/edit.png')}}" width=15px/></a>
+	<a href="{{ path('delete_workshop',{'_locale':app.request.locale,'id':workshop.id}) }}" class="admin_links"><img src="{{ asset('bundles/yt/images/delete.png')}}" width=15px/></a>
+{% endif %}</p>
+	<div style="height:10px">
+	<span class='st_fblike_hcount' displayText='Facebook Like'></span>
+	<span class='st_facebook_hcount' displayText='Facebook'></span>
+	<span class='st_twitter_hcount' displayText='Tweet'></span>
+	<span class='st_email_hcount' displayText='Email'></span>
+	</div>
+	<div >
+ 	{% if previousId %}
+    <p style='text-align:left;display:block;float:left;margin:0;padding:0'><a href="{{ path('workshops',{'id':previousId}) }}">{% trans %}Vorige{% endtrans %}</a></p>
+    {% endif %}
+    {% if nextId %}
+    <p style='text-align:right;display:block'><a href="{{ path('workshops',{'id':nextId}) }}">{% trans %}Volgende{% endtrans %}</a></p>
+	{% endif %} 
+	</div>
+{% else %}
+Geen workshop gevonden
+{% endif%}
+<div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "ur-309eeec0-4a6b-45db-8b49-b57ff2d3da18", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+{% endblock %}

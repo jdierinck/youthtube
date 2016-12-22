@@ -1,0 +1,43 @@
+{# {% extends 'form_div_layout.html.twig' %} #}
+
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block form_label %}
+    {{ parent() }}
+
+    {% if required %}
+        <span class="required" title="This field is required">*</span>
+    {% endif %}
+{% endblock %}
+
+{% block file_widget %}
+    {% spaceless %}
+
+    {{ block('form_widget') }}
+    {% if image_url is not null %}
+        <span>Huidige afbeelding: <img src="{{ asset(image_url) }}" width="10%"/></span>
+    {% endif %}
+
+    {% endspaceless %}
+{% endblock %}
+
+
+{#
+{% block form_row %}
+    <div>
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div>
+{% endblock form_row %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            {% for error in errors %}
+                <span class="errors">{{ error.message }}</span>
+            {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+#}

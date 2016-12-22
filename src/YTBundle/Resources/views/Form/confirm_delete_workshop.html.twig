@@ -1,0 +1,11 @@
+{% extends 'YTBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/forms.css') }}" type="text/css">
+{% endblock %}
+
+{% block body %}
+Bent u zeker dat u workshop {{workshop.id}} wilt wissen?
+{{ form(form) }}
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'YTBundle::base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<link rel="stylesheet" href="{{ asset('bundles/yt/css/forms.css') }}" type="text/css">
+
+<style>
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+</style>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+	<h1>Inloggen</h1>
+	<form action="{{ path('login_check') }}" method="post" role="form" class="form-horizontal">
+		<div class="form-group">
+			<label for="username" class="control-label col-sm-4">Gebruikersnaam:</label>
+			<div class="col-xs-4">
+				<input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password" class="control-label col-sm-4">Wachtwoord:</label>
+			<div class="col-xs-4">
+				<input type="password" id="password" name="_password" class="form-control"/>
+			</div>
+		</div>
+		{#
+			If you want to control the URL the user
+			is redirected to on success (more details below) #}
+			<input type="hidden" name="_target_path" value="{{ path('home') }}" />
+	
+	
+		{# csrf protection: insert hidden field that contains csrf token using the csrf_token function #}
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-default">Aanmelden</button>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}
+
+{# {%block body %}
+<div class="form_wrapper">
+	<h1>Inloggen</h1>
+	{{ form_start(form) }}
+	{{ form_errors(form) }}
+
+    <div>
+        {{ form_label(form.username) }}
+        {{ form_errors(form.username) }}
+        {{ form_widget(form.username,{'id':'username','full_name':'_username','attr':{'value':last_username}}) }}
+    </div>
+
+    <div>
+        {{ form_label(form.password) }}
+        {{ form_errors(form.password) }}
+        {{ form_widget(form.password,{'id':'password','full_name':'_password'}) }}
+    </div>
+
+    <div>
+        {{ form_widget(form.target_path,{'full_name':'_target_path','attr':{'value':path('home') } }) }}
+    </div>
+
+    <div>
+        {{ form_widget(form.submit) }}
+    </div>
+    
+	{{ form_end(form) }}
+</div>
+{%endblock %}
+#}

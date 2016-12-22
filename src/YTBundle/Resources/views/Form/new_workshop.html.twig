@@ -1,0 +1,23 @@
+{% extends 'YTBundle:Form:forms.html.twig' %}
+
+{%block body %}
+<div class="form_wrapper">
+    {% if type == 'new' %}
+    <h1>Voeg nieuwe workshop toe</h1>
+    {% elseif type == 'edit' %}
+    <h1>Pas workshop {{workshop.id}} aan ({{app.request.locale}})</h1>
+    {% endif %}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+       {{ form_errors(form) }}
+       {{ form_row(form.title) }}
+       {{ form_row(form.subtitle) }}
+       {{ form_row(form.description) }}
+       {# {% if type=='edit' and workshop.path %} Afbeelding: <img src="{{asset('uploads/images/'~ workshop.path)}}"/>{% endif %} #}
+       {{ form_row(form.file) }}
+       {{ form_row(form.continu) }}
+       {{ form_row(form.save, { 'label': type == 'new' ? 'Bewaar' : 'Pas toe' }, {'attr': {'formnovalidate': 'formnovalidate'}}) }}
+       {{ form_row(form.save_and_translate) }}
+       {{ form_row(form.cancel) }}
+    {{ form_end(form) }}
+</div>
+{%endblock %}

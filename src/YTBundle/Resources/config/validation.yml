@@ -1,0 +1,8 @@
+YTBundle\Entity\Workshop:
+    properties:
+        title:
+            - NotBlank: ~
+        subtitle:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~

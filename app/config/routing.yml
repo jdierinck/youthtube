@@ -1,0 +1,15 @@
+contact:
+    resource: "@ContactBundle/Resources/config/routing.yml"
+    prefix:   /
+
+#yt:
+#    resource: "@YTBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+yt:
+    resource: @YTBundle/Controller
+    type: annotation
+
+app:
+    resource: @AppBundle/Controller/
+    type:     annotation

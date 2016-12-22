@@ -1,0 +1,11 @@
+<div class="list-group">
+	{% for workshop in workshops %}
+    <a href="{{ path('workshops',{'_locale':app.request.locale,'id':workshop.id}) }}" class="list-group-item">{{ workshop.title }}</a>
+    {% if app.user and is_granted('ROLE_EDITOR') %}
+    	<a href="{{ path('edit_workshop',{'_locale':app.request.locale,'id':workshop.id}) }}"><span class="glyphicon glyphicon-edit"></span></a>
+    	<a href="{{ path('delete_workshop',{'_locale':app.request.locale,'id':workshop.id}) }}"><span class="glyphicon glyphicon-trash"></span></a>
+    {% endif %}
+	{% else %}
+	<div class="comment">{% trans %}Geen workshops gevonden{% endtrans %}</div>
+	{% endfor %}
+</div>

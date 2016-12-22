@@ -1,0 +1,15 @@
+contact_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ContactBundle:Default:index }
+
+contact:
+    path: /contact
+    defaults: { _controller: ContactBundle:Contact:new}
+
+contact_ajax:
+    path: /contact/cityfromzip/{zip}
+    defaults: { _controller: ContactBundle:MyAjax:getCityFromZip }
+
+contact_success:
+    path: /contact/success
+    defaults: { _controller: ContactBundle:Contact:success }

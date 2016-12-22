@@ -1,0 +1,23 @@
+{% extends 'YTBundle::base.html.twig' %}
+
+{% block body %}
+	<div class="wrapper">
+		{% if maintenance_mode == false %}<a href="fr/home">Cliquez ici pour la version française</a>{% else %}Save the date{% endif %}
+		<div id="head1">
+			<h1>{{ algemeen.date|date('d.m.Y') }}</h1>
+			<a {% if maintenance_mode == false %} href="{{ path('home') }}"{% endif %}><img id="img" src="{{ asset('bundles/yt/images/YouthTube_logo.png') }}" alt="Logo YouthTube" width="680px"></a>
+		</div>
+		{% if maintenance_mode == false %}<p>Klik op het logo om verder te gaan</p>{% endif %}
+	</div>
+{% endblock %}
+
+{% block footer %}
+<p>&copy J. Dierinck {{ "now"|date("Y") }} | {% trans %}Mail de{% endtrans %} <a href="mailto:johan.dierinck@wemmel.be">webmaster</a>  |  
+{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+<a href="/logout">{% trans %}Afmelden{% endtrans %}</a>
+{% else %}
+<a href="/login">{% trans %}Inloggen{% endtrans %}</a>
+{% endif %}
+{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}   |  <a href="{{ path('admin') }}">Opties</a>{% endif %}
+</p>
+{% endblock %}

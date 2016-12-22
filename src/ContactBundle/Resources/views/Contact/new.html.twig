@@ -1,0 +1,33 @@
+{% extends 'ContactBundle::base.html.twig' %}
+
+{% block title %}Simple site contact form{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/yt/css/forms.css') }}" type="text/css">
+{% endblock %}
+
+{% block body %}
+	<h1>Simple site contact form</h1>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+{% endblock %}
+
+{%block javascripts %}
+	<script>
+	$(function(){
+		$('#form_zip').blur(function(){
+			var zipvalue = $(this).val();
+			var url = '{{ path('contact_ajax',{'zip':'zipvalue'}) }}';
+			url = url.replace("zipvalue",zipvalue);
+			$.get(
+				url,
+				function(response){
+					var city=response;
+					$('#form_city').val(city);
+				}
+			);
+		});
+	});
+	</script>
+{% endblock %}

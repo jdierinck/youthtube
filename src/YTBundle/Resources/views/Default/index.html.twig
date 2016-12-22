@@ -1,0 +1,87 @@
+{% extends 'YTBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+<style>
+	h1,h2 {
+	font-family:"Courier New",Courier,monospace;
+	color:rgb(79,146,255);
+	font-size:2.5em;
+	font-weight:bold;
+	}
+
+	h2 {
+	font-size:1.25em;
+	}
+
+	h3 {
+	margin-top: 10px;
+	color:#a5a5a5;
+	}
+
+	#logo {
+		position:relative;
+		top:-50px;
+	}
+	
+		/* Sticky footer styles
+	-------------------------------------------------- */
+	html {
+	  position: relative;
+	  min-height: 100%;
+	}
+	body {
+	  /* Margin bottom by footer height */
+	  margin-bottom: 100px;
+	}
+	.footer {
+	  position: absolute;
+	  bottom: 0;
+	  width: 100%;
+	  /* Set the fixed height of the footer here */
+	  height: 100px;
+	  background-color: #f5f5f5;
+	}
+
+
+	/* Custom page CSS
+	-------------------------------------------------- */
+	/* Not required for template or sticky footer method. */
+
+	.container {
+	  width: auto;
+	  max-width: 680px;
+	  padding: 0 15px;
+	}
+	.container .text-muted {
+	  margin: 40px 0;
+	}
+    
+</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container text-center">
+		{% if maintenance_mode == false %}<p><a href="fr/home">Cliquez ici pour la version française</a>{% else %}Save the date{% endif %}</p>
+			<div>
+				<h1>{{ algemeen.date|date('d.m.Y') }}</h1>
+				<a {% if maintenance_mode == false %} href="{{ path('home') }}"{% endif %}><img id="logo" class="img-responsive" src="{{ asset('bundles/yt/images/YouthTube_logo.png') }}" alt="Logo YouthTube" style=""></a>
+			</div>
+			{% if maintenance_mode == false %}<p>Klik op het logo om verder te gaan</p>{% endif %}
+	</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+	<div class="container text-center">
+		<p class="text-muted">&copy J. Dierinck {{ "now"|date("Y") }} | {% trans %}Mail de{% endtrans %} <a href="mailto:johan.dierinck@wemmel.be">webmaster</a>  |  
+		{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+		<a href="/logout">{% trans %}Afmelden{% endtrans %}</a>
+		{% else %}
+		<a href="/login"><span class="glyphicon glyphicon-log-in"></span> {% trans %}Inloggen{% endtrans %}</a>
+		{% endif %}
+		{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}   |  <a href="{{ path('admin') }}">Opties</a>{% endif %}
+		</p>
+	</div>
+</footer>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'YTBundle:Default:index.html.twig' %}
+
+{% block title %} YouthTube - Home {% endblock %}
+
+{% block body %}
+
+{% render(controller('YTBundle:Menu:menu')) %}
+
+<div class="wrapper">
+		<div id="main">			
+			<img src="{{ asset('bundles/yt/images/YouthTube_BG.jpg') }}" alt="Background image" />
+			<p id="block"></p>
+			<p>{{ render(controller('YTBundle:Default:showAlgemeen')) }}</p>
+			<p>{% if app.user and is_granted('ROLE_EDITOR') %}<a href="{{ path('edit_algemeen',{'_locale':app.request.locale}) }}" class="admin_links"><img src="{{ asset('bundles/yt/images/edit.png')}}" width=15px/></a>{% endif %}</p>
+		</div> 
+		<div id="spacer">
+		</div>
+		<div id="side1st" class="activities">
+			<h2>{% trans %}Workshops{% endtrans %}</h2>
+					{{ render(controller('YTBundle:Workshops:workshopsList',{'doorl':0})) }}
+		</div>
+		<div id="side2nd" class="activities">
+			<h2>{% trans %}Doorlopend{% endtrans %}</h2>
+				{{ render(controller('YTBundle:Workshops:workshopsList',{'doorl':1})) }}
+		</div>
+		<div class="activities">
+			{% if app.user and is_granted('ROLE_EDITOR') %}
+   			<a href="/workshops/new" class="admin_links"><img src="{{ asset('bundles/yt/images/add.png') }}" width=15px/>{% trans %} voeg nieuwe workshop toe{% endtrans %}</a>
+    		{% endif %}
+    	</div>
+		<div id="side3rd" class="activities">
+			<span class='st_facebook_large' displayText='Facebook'></span>
+			<span class='st_twitter_large' displayText='Tweet'></span>
+			<span class='st_email_large' displayText='Email'></span>
+		</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<!-- Sharebuttons -->
+	<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "ur-6881385-8ad1-f6cb-9c32-7a44b1b31669", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+	<!-- end Sharebuttons -->
+{% endblock %}

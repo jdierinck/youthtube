@@ -1,0 +1,52 @@
+{% extends 'YTBundle:Default:home.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		#afb {
+			margin-bottom: 15px;
+			display:inline;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+{% render(controller('YTBundle:Menu:menu')) %}
+<div class="container text-center">
+	{% if workshop %}
+		<h1>{{ workshop.title }}</h1>
+		<h3>{{ workshop.subtitle }}</h3>
+		<img src="{{ asset(workshop.getwebpath) }}" class="img-responsive" id="afb">
+ 		<div style="text-align:justify">{{ workshop.description|raw }}</div>
+		<p>{% if app.user and is_granted('ROLE_EDITOR') %}
+			<a href="{{ path('edit_workshop',{'_locale':app.request.locale,'id':workshop.id}) }}" class="admin_links"><span class="glyphicon glyphicon-edit"></span></a>
+			<a href="{{ path('delete_workshop',{'_locale':app.request.locale,'id':workshop.id}) }}" class="admin_links"><span class="glyphicon glyphicon-trash"></span></a>
+			{% endif %}
+		</p>
+<!-- 
+		<div style="">
+			<span class='st_fblike_hcount' displayText='Facebook Like'></span>
+			<span class='st_facebook_hcount' displayText='Facebook'></span>
+			<span class='st_twitter_hcount' displayText='Tweet'></span>
+			<span class='st_email_hcount' displayText='Email'></span>
+		</div>
+ -->
+ 	<ul class="pager">
+ 		{% if previousId %}
+		<li class="previous"><a href="{{ path('workshops',{'id':previousId}) }}">{% trans %}Vorige{% endtrans %}</a></li>
+		{% endif %}
+		{% if nextId %}
+		<li class="next"><a href="{{ path('workshops',{'id':nextId}) }}">{% trans %}Volgende{% endtrans %}</a></li>
+		{% endif %}
+	</ul>
+	{% else %}
+	Geen workshop gevonden
+	{% endif%}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "ur-309eeec0-4a6b-45db-8b49-b57ff2d3da18", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+{% endblock %}
